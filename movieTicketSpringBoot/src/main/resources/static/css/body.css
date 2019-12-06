@@ -1,0 +1,57 @@
+body {
+	text-align: center;
+	padding: 10px;
+	background: radial-gradient(circle, white, grey, black);
+}
+
+.outer-div {
+	font-size: 20px;
+	text-align: center;
+	padding: 30px;
+	display: inline-block;
+}
+
+.inner-div {
+	font-size: 20px;
+	text-align: center;
+	display: inline-block;
+	padding: 30px;
+	border-radius: 30px;
+	background-color: #D3D3D3;
+}
+
+label {
+	font-family: monospace;
+	font-size: 20px;
+}
+
+select {
+	width: 50%;
+	margin: 5px;
+	padding: 5px;
+	border-radius: 5px;
+	font-family: monospace;
+}
+
+a {
+	width: 50%;
+	align: center;
+	border-radius: 5px;
+	padding: 5px;
+	margin: 5px;
+	border: 1px;
+	font-family: cursive, sans-serif;
+	font-size: 20px;
+	align: center;
+	border: 1px;
+}
+
+a:active {
+	background-color: #3e8e41;
+	transform: translateY(4px);
+}
+
+a:hover {
+	background-color: #750504;
+	color: white;
+}

@@ -1,0 +1,17 @@
+#submit {
+	align: center;
+	border-radius: 5px;
+	border: 1px;
+	font-family: cursive, sans-serif;
+	font-size: 20px;
+}
+
+#submit:active {
+	background-color: #3e8e41;
+	transform: translateY(4px);
+}
+
+#submit:hover {
+	background-color: #750504;
+	color: white;
+}

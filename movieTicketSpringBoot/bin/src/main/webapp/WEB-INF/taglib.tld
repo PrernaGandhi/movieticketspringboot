@@ -1,0 +1,16 @@
+<taglib xmlns="http://java.sun.com/xml/ns/j2ee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee https://svn.java.net/svn/mojarra~svn/tags/2.1.13/jsf-api/doc/web-facesconfig_2_1.xsd"
+	version="2.1">
+
+	<tlib-version>1.0</tlib-version>
+	<uri>/WEB-INF/taglib.tld</uri>
+	<short-name>k</short-name>
+
+	<function>
+		<name>isCheckboxChecked</name>
+		<function-class>com.epam.utils.HelperFunctions</function-class>
+		<function-signature>java.lang.Boolean isCheckboxChecked(java.util.List,java.lang.String)</function-signature>
+	</function>
+
+</taglib> 
