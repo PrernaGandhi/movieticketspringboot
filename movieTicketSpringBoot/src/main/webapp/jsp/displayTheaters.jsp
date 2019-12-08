@@ -17,7 +17,7 @@
 	<div align="right"></div>
 	<div align="justify">
 		<div align="center">
-			<form action="displayTimings" method="get">
+			<form action="displayDate" method="get">
 				<select name="theaterSelected">
 					<c:forEach items="${theaterList}" var="theater" varStatus="loop">
 						<option value="${theater.theaterId}">${theater.theaterName}(${theater.screenNumber})

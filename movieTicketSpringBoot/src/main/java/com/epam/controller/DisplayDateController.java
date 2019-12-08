@@ -1,7 +1,5 @@
 package com.epam.controller;
 
-import java.sql.Date;
-
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,23 +10,24 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.epam.beans.UserOrders;
 import com.epam.rest.webservice.client.TimingsRestClient;
-
 @Controller
-public class DisplayTimingsController {
-	private static final String TIMINGS_LIST = "timingsList";
+public class DisplayDateController {
+	private static final String THEATER_CAPACITY = "theaterCapacity";
 	private static final String ORDER = "order";
+	private static final String THEATER_SELECTED = "theaterSelected";
+	private static final String THEATER = "theater";
 	@Autowired
 	TimingsRestClient timingsRestClient;
 
-	@GetMapping("/displayTimings")
-	protected ModelAndView displayTimings(@RequestParam Date dateSelected, HttpSession httpSession) {
+	@GetMapping("/displayDate")
+	protected ModelAndView displayTimings(@RequestParam String theaterSelected, HttpSession httpSession) {
+		httpSession.setAttribute(THEATER_SELECTED, theaterSelected);
 		UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
-		userOrder.setDateOfPurchase(dateSelected);
+		userOrder.setTheaterName((String) httpSession.getAttribute(THEATER));
+		httpSession.setAttribute(ORDER, userOrder);
+		httpSession.setAttribute(THEATER_CAPACITY, timingsRestClient.getTheaterCapacity(theaterSelected));
 		ModelAndView modelAndView = new ModelAndView();
-		String theaterSelected = (String) httpSession.getAttribute("theaterSelected");
-		modelAndView.addObject(TIMINGS_LIST, timingsRestClient.getTimingList(theaterSelected));
-		modelAndView.addObject("dateSelected", dateSelected);
-		modelAndView.setViewName("displayTimings");
+		modelAndView.setViewName("displayDate");
 		return modelAndView;
 	}
 }
