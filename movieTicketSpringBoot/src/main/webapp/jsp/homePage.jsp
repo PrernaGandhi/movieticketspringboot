@@ -13,6 +13,11 @@
 <link rel="stylesheet" href="css/submit.css">
 </head>
 <body>
+	<script>
+		window.onbeforeunload = function() {
+			return "You will be logged out if you click the back button";
+		};
+	</script>
 	<%@include file="header.jsp"%>
 	<div align="right"></div>
 	<div align="justify">
