@@ -14,7 +14,6 @@ import com.epam.rest.webservice.client.TheaterRestClient;
 @Controller
 public class DisplayTheaterController {
 	private static final String THEATER_LIST = "theaterList";
-	private static final String MOVIE = "movie";
 	private static final String ORDER = "order";
 	private static final String MOVIE_SELECTED = "movieSelected";
 	@Autowired
@@ -22,12 +21,14 @@ public class DisplayTheaterController {
 
 	@GetMapping("/displayTheaters")
 	public ModelAndView displayTheater(@RequestParam String movieSelected, HttpSession httpSession) {
-		httpSession.setAttribute(MOVIE_SELECTED, movieSelected);
+		String movieId = movieSelected.split("-")[0];
+		String movieName = movieSelected.split("-")[1];
+		httpSession.setAttribute(MOVIE_SELECTED, movieName);
 		UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
-		userOrder.setMovieName((String) httpSession.getAttribute(MOVIE));
+		userOrder.setMovieName(movieName);
 		httpSession.setAttribute(ORDER, userOrder);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject(THEATER_LIST, theaterRestClient.getTheaterList(movieSelected));
+		modelAndView.addObject(THEATER_LIST, theaterRestClient.getTheaterList(movieId));
 		modelAndView.setViewName("displayTheaters");
 		return modelAndView;
 	}

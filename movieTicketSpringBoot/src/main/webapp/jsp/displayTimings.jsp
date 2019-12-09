@@ -18,6 +18,13 @@
 	<div align="right"></div>
 	<div align="justify">
 		<div align="center">
+		<label>City Selected :: ${order.locationName}</label>	
+		<br>
+		<label>Movie Selected :: ${order.movieName}</label>
+		<br>
+		<label>Theater Selected :: ${order.theaterName}</label>
+		<br>
+		<label>Date Selected :: ${order.dateOfPurchase}</label>
 			<form action="displaySeats" method="get">
 				<c:set var="now" value="<%=new java.util.Date()%>" />
 				<fmt:formatDate var="currentTime" type="time" pattern="HH:00"
@@ -28,17 +35,15 @@
 					<c:choose>
 						<c:when test="${currentDate == dateSelected}">
 							<c:forEach items="${timingsList}" var="timings" varStatus="loop">
-								<c:if test="${timings.timing >= currentTime}">
-									<option value="${timings.timingsId}">${timings.timing}
-										<c:set var="timing" value="${timings.timing}" scope="session" />
+								<c:if test="${timings.timing > currentTime}">
+									<option value="${timings.timingsId}-${timings.timing}">${timings.timing}
 									</option>
 								</c:if>
 							</c:forEach>
 						</c:when>
 						<c:otherwise>
 							<c:forEach items="${timingsList}" var="timings" varStatus="loop">
-								<option value="${timings.timingsId}">${timings.timing}
-									<c:set var="timing" value="${timings.timing}" scope="session" />
+								<option value="${timings.timingsId}-${timings.timing}">${timings.timing}
 								</option>
 							</c:forEach>
 						</c:otherwise>

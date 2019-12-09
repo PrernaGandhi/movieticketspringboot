@@ -46,6 +46,7 @@ public class SeatsRestClient {
 	}
 
 	public boolean isSeatsSelected(String seatString) {
+		System.out.println(seatString);
 		ResponseEntity<Boolean> resp = restTemplate.exchange(
 				urlDetails.url.concat(urlDetails.port).concat("/isSeatsSelected/").concat(seatString), HttpMethod.GET,
 				null, new ParameterizedTypeReference<Boolean>() {

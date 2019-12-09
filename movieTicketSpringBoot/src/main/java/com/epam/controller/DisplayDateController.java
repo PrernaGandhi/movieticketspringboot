@@ -15,17 +15,18 @@ public class DisplayDateController {
 	private static final String THEATER_CAPACITY = "theaterCapacity";
 	private static final String ORDER = "order";
 	private static final String THEATER_SELECTED = "theaterSelected";
-	private static final String THEATER = "theater";
 	@Autowired
 	TimingsRestClient timingsRestClient;
 
 	@GetMapping("/displayDate")
 	protected ModelAndView displayTimings(@RequestParam String theaterSelected, HttpSession httpSession) {
-		httpSession.setAttribute(THEATER_SELECTED, theaterSelected);
+		String theaterId = theaterSelected.split("-")[0];
+		String theaterName = theaterSelected.split("-")[1];
+		httpSession.setAttribute(THEATER_SELECTED, theaterId);
 		UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
-		userOrder.setTheaterName((String) httpSession.getAttribute(THEATER));
+		userOrder.setTheaterName(theaterName);
 		httpSession.setAttribute(ORDER, userOrder);
-		httpSession.setAttribute(THEATER_CAPACITY, timingsRestClient.getTheaterCapacity(theaterSelected));
+		httpSession.setAttribute(THEATER_CAPACITY, timingsRestClient.getTheaterCapacity(theaterId));
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("displayDate");
 		return modelAndView;

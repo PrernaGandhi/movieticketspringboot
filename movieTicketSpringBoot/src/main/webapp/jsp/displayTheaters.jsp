@@ -17,13 +17,14 @@
 	<div align="right"></div>
 	<div align="justify">
 		<div align="center">
+		<label>City Selected :: ${order.locationName}</label>	
+		<br>
+		<label>Movie Selected :: ${order.movieName}</label>
 			<form action="displayDate" method="get">
 				<select name="theaterSelected">
 					<c:forEach items="${theaterList}" var="theater" varStatus="loop">
-						<option value="${theater.theaterId}">${theater.theaterName}(${theater.screenNumber})
-							<c:set var="theater"
-								value="${theater.theaterName}(${theater.screenNumber})"
-								scope="session" /></option>
+						<option value="${theater.theaterId}-${theater.theaterName}(${theater.screenNumber})">${theater.theaterName}(${theater.screenNumber})
+							</option>
 						<br>
 					</c:forEach>
 				</select> <br> <input type="submit" value="Submit" id="submit">

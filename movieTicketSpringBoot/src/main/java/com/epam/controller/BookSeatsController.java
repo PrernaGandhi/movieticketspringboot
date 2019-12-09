@@ -11,15 +11,13 @@ import org.springframework.web.servlet.ModelAndView;
 import com.epam.beans.SeatType;
 import com.epam.beans.UserOrders;
 import com.epam.rest.webservice.client.SeatsRestClient;
+import com.epam.utils.SeatTypeEnum;
 
 @Controller
 public class BookSeatsController {
 	private static final String EMPTY_STRING = "";
 	private static final String REPLACE_PRICE = "(-[^,]+)";
-	private static final String ORDER = "order";
-	private static final String ROYALSEAT = "R";
-	private static final String PREMIUMSEAT = "P";
-	private static final String NORMALSEAT = "N";
+	private static final String ORDER = "order"; 
 	@Autowired
 	SeatsRestClient seatsRestClient;
 	@Autowired
@@ -27,9 +25,11 @@ public class BookSeatsController {
 
 	@PostMapping("/bookSeats")
 	public ModelAndView bookSeats(HttpServletRequest req, HttpSession httpSession) {
-		seatType.setNormalSeats(req.getParameterValues(NORMALSEAT));
-		seatType.setRoyalSeats(req.getParameterValues(ROYALSEAT));
-		seatType.setPremiumSeats(req.getParameterValues(PREMIUMSEAT));
+		System.out.println(SeatTypeEnum.PLATINUMSEAT.toString());
+		seatType.setNormalSeats(req.getParameterValues(SeatTypeEnum.NORMALSEAT.getSeatType()));
+		seatType.setRoyalSeats(req.getParameterValues(SeatTypeEnum.ROYALSEAT.getSeatType()));
+		seatType.setPremiumSeats(req.getParameterValues(SeatTypeEnum.PLATINUMSEAT.getSeatType()));
+		System.out.println(seatType.getPremiumSeats());
 		String seatsString = seatsRestClient.getSelectedSeats(seatType);
 		ModelAndView modelAndView = new ModelAndView();
 		if (seatsRestClient.isSeatsSelected(seatsString)) {

@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -23,8 +24,15 @@ public class LoginController {
 	protected static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 	@Autowired
 	UserRepository userRepository;
+	
+	@GetMapping("/login-success")
+	public ModelAndView goBack() {
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName("loginSuccess");
+		return modelAndView;
+	}
 
-	@PostMapping("/login")
+	@PostMapping("/login-success")
 	public ModelAndView login(@ModelAttribute User userDetails, HttpSession httpSession) {
 		Optional<User> user = userRepository.findByUsername(userDetails.getUsername());
 		ModelAndView modelAndView = new ModelAndView();
@@ -37,7 +45,7 @@ public class LoginController {
 			userOrder.setUser(user.get());
 			userOrder.setUserName(user.get().getUsername());
 			httpSession.setAttribute(ORDER, userOrder);
-			modelAndView.setViewName("forward:/homePage");
+			modelAndView.setViewName("loginSuccess");
 		} catch (Exception e) {
 			LOGGER.error("Exception occurred while logging in {} ", e.getMessage());
 		}

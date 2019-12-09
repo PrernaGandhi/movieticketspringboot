@@ -28,10 +28,13 @@ public class DisplaySeatsController {
 
 	@GetMapping("/displaySeats")
 	public ModelAndView displaySeats(@RequestParam String timeSelected, HttpSession httpSession) {
+		String timeId = timeSelected.split("-")[0];
+		String timing = timeSelected.split("-")[1];
 		ModelAndView modelAndView = new ModelAndView();
 		try {
 			UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
-			Timings timings = timingsRestClient.getTimings(Integer.parseInt(timeSelected));
+			Timings timings = timingsRestClient.getTimings(Integer.parseInt(timeId));
+			httpSession.setAttribute("time", timing);
 			userOrder.setTimings(timings);
 			userOrder.setTimingsId(userOrder.getTimings().getTimingsId());
 			httpSession.setAttribute(ORDER, userOrder);

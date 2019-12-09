@@ -7,21 +7,20 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>HomePage</title>
+<title>Locations</title>
 <link rel="stylesheet" href="css/body.css">
 <link rel="stylesheet" href="css/loginInfo.css">
 <link rel="stylesheet" href="css/submit.css">
+<link rel="stylesheet" href="css/buttonStyle.css">
 </head>
 <body>
-	<script>
-		window.onbeforeunload = function() {
-			return "You will be logged out if you click the back button";
-		};
-	</script>
 	<%@include file="header.jsp"%>
 	<div align="right"></div>
 	<div align="justify">
 		<div align="center">
+		<form action="/login-success">
+				<button class="button">Back</button>
+			</form>
 			<form action="displayMovies" method="get">
 				<select name="locationSelected">
 					<c:forEach items="${locationList}" var="location" varStatus="loop">
