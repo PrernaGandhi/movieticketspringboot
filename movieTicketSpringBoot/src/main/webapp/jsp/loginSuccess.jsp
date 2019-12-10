@@ -8,14 +8,18 @@
 <link rel="stylesheet" href="css/body.css">
 <link rel="stylesheet" href="css/buttonStyle.css">
 </head>
-<body>
+<body>	
+<script type="text/javascript">
+                    window.history.forward();
+                    function noBack() {
+                        window.history.forward();
+                    }
+                </script>
 	<%@include file="header.jsp"%>
 	<div class="outer-div">
 		<div class="inner-div">
-			<label>welcome ${userInfo.firstName}</label>
-			<br>
-			<br>
-			<img alt="" src="img/Popcorn.jpg">
+			<label>welcome ${userInfo.firstName}</label> <br> <br> <img
+				alt="" src="img/Popcorn.jpg">
 			<form action="homePage">
 				<button class="button">click to continue..</button>
 			</form>

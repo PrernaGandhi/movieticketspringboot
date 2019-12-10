@@ -61,10 +61,17 @@
 		
 		checkboxes.forEach((element)=> {
 			element.addEventListener('change', () => {
+				if(element.checked){
 				selected += 1;
+				}
+				else{
+					selected-=1;
+				}
 				console.log(selected);
 				if (selected > 0) {
 					document.getElementById('submit').disabled = false;
+				}else{
+					document.getElementById('submit').disabled = true;
 				}
 			})
 		})	
