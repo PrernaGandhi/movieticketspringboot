@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 
-import com.epam.beans.User;
+import com.epam.beans.Users;
 import com.epam.repository.UserRepository;
 
 class LoginServiceTest {
@@ -19,7 +19,7 @@ class LoginServiceTest {
 	@Spy
 	UserRepository userRepository;
 	@Mock
-	User user;
+	Users user;
 
 	@BeforeEach
 	void setup() {

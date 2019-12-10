@@ -13,22 +13,30 @@
 <body>
 	<div class="outer-div">
 		<div class="inner-div">
-		<%
-		if(request.getAttribute("errorMsg") != null){
-			out.print(request.getAttribute("errorMsg"));
-		}
-		%>
+			<%
+				if (request.getAttribute("errorMsg") != null) {
+					out.print(request.getAttribute("errorMsg"));
+				}
+			%>
 			<form action="registerUser" method="post">
+				<label>Email</label> <input type="text" name="email" id="email"
+					pattern="([A-z0-9_]+@epam.com)"
+					oninvalid="setCustomValidity('Must be a valid epam email id')" required><br />
 				<label>Username</label> <input type="text" name="username"
 					id="username" required><br /> <label>Password</label> <input
-					type="password" name="password" id="password" required><br />
-				<label>First Name</label> <input type="text" name="firstName"
-					id="fname" required><br /> <label>Last Name</label> <input
-					type="text" name="lastName" id="lname" required><br /> <label>Age</label>
-				<input type="number" name="age" id="age" max="120" min="1" required><br /> <label>Gender</label>
-				<input type="radio" name="gender" id="gender" value="male" required>Male
-				<input type="radio" name="gender" id="gender" value="female">Female<br />
-				<input type="submit" value="Submit" id="submit">
+					type="password" name="password" id="password"
+					pattern="^((?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$)"
+					oninvalid="setCustomValidity('Please include 2 uppercase, 3 lowercase, 2 digits ,1 special character and length >8')"
+					required><br /> <label>First Name</label> <input
+					type="text" name="firstName" id="fname" required><br /> <label>Last
+					Name</label> <input type="text" name="lastName" id="lname" required><br />
+				<label>Age</label> <input type="number" name="age" id="age"
+					max="120" min="1"
+					oninvalid="setCustomValidity('Must be a valid age')" required><br />
+				<label>Gender</label> <input type="radio" name="gender" id="gender"
+					value="male" required>Male <input type="radio"
+					name="gender" id="gender" value="female">Female<br /> <input
+					type="submit" value="Submit" id="submit">
 			</form>
 			<hr>
 			<a href="login">Back To Login</a>

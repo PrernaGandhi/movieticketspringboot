@@ -20,6 +20,9 @@
 		<label>City Selected :: ${order.locationName}</label>	
 		<br>
 		<label>Movie Selected :: ${order.movieName}</label>
+		<br>
+		<br>
+			<label>Select Theater</label>
 			<form action="displayDate" method="get">
 				<select name="theaterSelected">
 					<c:forEach items="${theaterList}" var="theater" varStatus="loop">

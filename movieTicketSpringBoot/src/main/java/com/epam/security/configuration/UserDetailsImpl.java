@@ -5,15 +5,15 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
-import com.epam.beans.User;
+import com.epam.beans.Users;
 
 @Service
 public class UserDetailsImpl implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
-	private User user;
+	private Users user;
 
-	public UserDetailsImpl(User user) {
+	public UserDetailsImpl(Users user) {
 		this.user = user;
 	}
 

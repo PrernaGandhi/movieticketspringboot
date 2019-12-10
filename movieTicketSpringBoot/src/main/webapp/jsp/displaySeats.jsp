@@ -15,19 +15,24 @@
 <link rel="stylesheet" href="css/loginInfo.css">
 <link rel="stylesheet" href="css/seats.css">
 </head>
-<body>
+<body onload="disableBackButton()">
+	<script>
+	  function disableBackButton()
+      {
+	        window.history.forward();
+       }
+	</script>
 	<%@include file="header.jsp"%>
 	<div class="outer-div">
 		<div class="inner-div">
-		<label>City Selected :: ${order.locationName}</label>	
+			<label>City Selected :: ${order.locationName}</label> <br> <label>Movie
+				Selected :: ${order.movieName}</label> <br> <label>Theater
+				Selected :: ${order.theaterName}</label> <br> <label>Date
+				Selected :: ${order.dateOfPurchase}</label> <br> <label>Time
+				Selected :: ${time}</label>
+				<br>
 		<br>
-		<label>Movie Selected :: ${order.movieName}</label>
-		<br>
-		<label>Theater Selected :: ${order.theaterName}</label>
-		<br>
-		<label>Date Selected :: ${order.dateOfPurchase}</label>
-		<br>
-		<label>Time Selected :: ${time}</label>
+			<label>Select Seats</label>
 			<form action="bookSeats" method="post">
 				<c:set var="bookedSeats" value="${seatsList}" />
 				<c:forEach var="totalSeats" items="${theaterCapacity}"
@@ -49,8 +54,7 @@
 					<br>
 					<hr>
 				</c:forEach>
-				<br> <input type="submit" value="Submit" id="submit"
-					 disabled>
+				<br> <input type="submit" value="Submit" id="submit" disabled>
 			</form>
 		</div>
 	</div>
@@ -74,7 +78,7 @@
 					document.getElementById('submit').disabled = true;
 				}
 			})
-		})	
+		})
 	</script>
 </body>
 </html>

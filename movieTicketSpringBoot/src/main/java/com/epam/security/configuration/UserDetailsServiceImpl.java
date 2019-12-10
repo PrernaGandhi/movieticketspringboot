@@ -8,7 +8,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.epam.beans.User;
+import com.epam.beans.Users;
 import com.epam.repository.UserRepository;
 
 @Service
@@ -18,7 +18,7 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 	@Override
 	public UserDetails loadUserByUsername(String username) {
-		Optional<User> user = userRepository.findByUsername(username);
+		Optional<Users> user = userRepository.findByUsername(username);
 		return new UserDetailsImpl(user.orElseThrow(() -> new UsernameNotFoundException("User not found")));
 	}
 

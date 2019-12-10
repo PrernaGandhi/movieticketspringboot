@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ page import="java.util.*"%>
-<%@ page import="com.epam.beans.User"%>
+<%@ page import="com.epam.beans.Users"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -21,6 +21,8 @@
 		<form action="/login-success">
 				<button class="button">Back</button>
 			</form>
+			<br>
+			<label>Select Location</label>
 			<form action="displayMovies" method="get">
 				<select name="locationSelected">
 					<c:forEach items="${locationList}" var="location" varStatus="loop">

@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.epam.beans.User;
+import com.epam.beans.Users;
 import com.epam.repository.UserRepository;
 import com.epam.rest.webservice.client.RegisterRestClient;
 
@@ -20,14 +20,14 @@ import com.epam.rest.webservice.client.RegisterRestClient;
 public class RegisterController {
 	protected static final Logger LOGGER = LoggerFactory.getLogger(RegisterController.class);
 	@Autowired
-	User user;
+	Users user;
 	@Autowired
 	RegisterRestClient registerRestClient;
 	@Autowired
 	UserRepository userRepository;
 
 	@PostMapping("/registerUser")
-	public ModelAndView submitRegistrationForm(@Validated User userDetails) {
+	public ModelAndView submitRegistrationForm(@Validated Users userDetails) {
 		String encrpytedPassword = new BCryptPasswordEncoder()
 				.encode(userDetails.getPassword() != null ? userDetails.getPassword() : "");
 		user.setUsername(userDetails.getUsername());
@@ -36,13 +36,14 @@ public class RegisterController {
 		user.setLastName(userDetails.getLastName());
 		user.setGender(userDetails.getGender());
 		user.setAge(userDetails.getAge());
+		user.setEmail(userDetails.getEmail());
 		ModelAndView modelAndView = new ModelAndView();
-		Optional<User> userFound = userRepository.findByUsername(userDetails.getUsername());
+		Optional<Users> userFound = userRepository.findByUsername(userDetails.getUsername());
 		if (userFound.isPresent()) {
 			modelAndView.addObject("errorMsg", "Username Already Taken");
 			modelAndView.setViewName("register");
 		} else {
-			User userSaved = registerRestClient.register(user);
+			Users userSaved = registerRestClient.register(user);
 			if (userSaved != null) {
 				LOGGER.info("User Registered!!!!");
 				modelAndView.setViewName("redirect:/login");

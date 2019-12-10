@@ -24,12 +24,12 @@ import lombok.Setter;
 @Setter
 public class UserOrders {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "order_id")
 	private int orderId;
-	@ManyToOne(targetEntity = User.class)
+	@ManyToOne(targetEntity = Users.class)
 	@JoinColumn(name = "user_id")
-	private User user;
+	private Users user;
 	@Column(name = "username")
 	private String userName;
 	@Column(name = "location_name")

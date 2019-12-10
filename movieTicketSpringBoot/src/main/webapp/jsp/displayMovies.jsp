@@ -18,6 +18,9 @@
 	<div align="justify">
 		<div align="center">
 		<label>City Selected :: ${order.locationName}</label>
+		<br>
+		<br>
+			<label>Select Movie</label>
 			<form action="displayTheaters" method="get">
 				<select name="movieSelected">
 					<c:forEach items="${movieList}" var="movie" varStatus="loop">

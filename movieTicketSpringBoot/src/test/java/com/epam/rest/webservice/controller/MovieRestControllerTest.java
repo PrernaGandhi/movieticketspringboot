@@ -14,7 +14,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 
 import com.epam.beans.Movie;
-import com.epam.beans.User;
+import com.epam.beans.Users;
 import com.epam.service.DisplayMoviesService;
 
 class MovieRestControllerTest {
@@ -23,7 +23,7 @@ class MovieRestControllerTest {
 	@InjectMocks
 	MoviesRestController moviesRestController;
 	@Mock
-	User user;
+	Users user;
 	@Mock
 	List<Movie> movieList;
 

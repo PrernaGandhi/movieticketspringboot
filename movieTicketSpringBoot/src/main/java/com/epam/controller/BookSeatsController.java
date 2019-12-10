@@ -10,26 +10,32 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.epam.beans.SeatType;
 import com.epam.beans.UserOrders;
+import com.epam.beans.Users;
 import com.epam.rest.webservice.client.SeatsRestClient;
+import com.epam.service.EmailMessage;
+import com.epam.service.EmailService;
 import com.epam.utils.SeatTypeEnum;
 
 @Controller
 public class BookSeatsController {
+	private static final String BOOKING_CONFIRMATION = "BookingConfirmation";
 	private static final String EMPTY_STRING = "";
 	private static final String REPLACE_PRICE = "(-[^,]+)";
 	private static final String ORDER = "order"; 
 	@Autowired
 	SeatsRestClient seatsRestClient;
 	@Autowired
+	EmailService emailService;
+	@Autowired
 	SeatType seatType;
+	@Autowired
+	EmailMessage emailMessage;
 
 	@PostMapping("/bookSeats")
 	public ModelAndView bookSeats(HttpServletRequest req, HttpSession httpSession) {
-		System.out.println(SeatTypeEnum.PLATINUMSEAT.toString());
 		seatType.setNormalSeats(req.getParameterValues(SeatTypeEnum.NORMALSEAT.getSeatType()));
 		seatType.setRoyalSeats(req.getParameterValues(SeatTypeEnum.ROYALSEAT.getSeatType()));
 		seatType.setPremiumSeats(req.getParameterValues(SeatTypeEnum.PLATINUMSEAT.getSeatType()));
-		System.out.println(seatType.getPremiumSeats());
 		String seatsString = seatsRestClient.getSelectedSeats(seatType);
 		ModelAndView modelAndView = new ModelAndView();
 		if (seatsRestClient.isSeatsSelected(seatsString)) {
@@ -40,6 +46,8 @@ public class BookSeatsController {
 			httpSession.setAttribute(ORDER, userOrder);
 			UserOrders userOrdersSaved = seatsRestClient.bookUserSeats(userOrder);
 			if (userOrdersSaved != null) {
+				Users user = (Users) httpSession.getAttribute("userInfo");
+				emailService.sendMail(user.getEmail(), BOOKING_CONFIRMATION, emailMessage.formatMsg(user, userOrdersSaved));
 				modelAndView.setViewName("bookingConfirmed");
 			}
 		}

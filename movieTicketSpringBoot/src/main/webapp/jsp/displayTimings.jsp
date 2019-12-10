@@ -25,6 +25,9 @@
 		<label>Theater Selected :: ${order.theaterName}</label>
 		<br>
 		<label>Date Selected :: ${order.dateOfPurchase}</label>
+		<br>
+		<br>
+			<label>Select Time</label>
 			<form action="displaySeats" method="get">
 				<c:set var="now" value="<%=new java.util.Date()%>" />
 				<fmt:formatDate var="currentTime" type="time" pattern="HH:00"

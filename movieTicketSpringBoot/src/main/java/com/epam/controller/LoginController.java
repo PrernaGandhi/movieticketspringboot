@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.epam.beans.User;
+import com.epam.beans.Users;
 import com.epam.beans.UserOrders;
 import com.epam.repository.UserRepository;
 
@@ -33,8 +33,8 @@ public class LoginController {
 	}
 
 	@PostMapping("/login-success")
-	public ModelAndView login(@ModelAttribute User userDetails, HttpSession httpSession) {
-		Optional<User> user = userRepository.findByUsername(userDetails.getUsername());
+	public ModelAndView login(@ModelAttribute Users userDetails, HttpSession httpSession) {
+		Optional<Users> user = userRepository.findByUsername(userDetails.getUsername());
 		ModelAndView modelAndView = new ModelAndView();
 		try {
 			httpSession.setAttribute(USER_INFO, user.get());

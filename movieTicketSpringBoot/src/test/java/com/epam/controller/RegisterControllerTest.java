@@ -16,7 +16,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.test.web.servlet.MockMvc;
-import com.epam.beans.User;
+import com.epam.beans.Users;
 import com.epam.rest.webservice.client.RegisterRestClient;
 
 @SpringBootTest
@@ -28,7 +28,7 @@ class RegisterControllerTest {
 	@MockBean
 	RegisterRestClient registerRestClient;
 	@MockBean
-	User user;
+	Users user;
 	@InjectMocks
 	RegisterController registerController;
 

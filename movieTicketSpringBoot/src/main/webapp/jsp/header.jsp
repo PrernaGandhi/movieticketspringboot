@@ -12,6 +12,9 @@
 </head>
 <body>
 	<div>
+		<div align="left">
+			<img id="logo" alt="" src="img/logo.png">
+		</div>
 		<div class="loginInfo" align="right" class="headerText">Welcome
 			${userInfo.firstName}</div>
 	</div>

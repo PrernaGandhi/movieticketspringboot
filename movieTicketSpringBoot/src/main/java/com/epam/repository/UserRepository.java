@@ -5,12 +5,12 @@ import java.util.Optional;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
-import com.epam.beans.User;
+import com.epam.beans.Users;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Integer> {
+public interface UserRepository extends CrudRepository<Users, Integer> {
 
-	User findByUsernameAndPassword(String username, String password);
+	Users findByUsernameAndPassword(String username, String password);
 
-	Optional<User> findByUsername(String username);
+	Optional<Users> findByUsername(String username);
 }

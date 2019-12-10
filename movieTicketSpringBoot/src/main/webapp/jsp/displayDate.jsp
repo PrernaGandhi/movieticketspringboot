@@ -29,7 +29,11 @@
 		<label>Movie Selected :: ${order.movieName}</label>
 		<br>
 		<label>Theater Selected :: ${order.theaterName}</label>
+		<br>
+		<br>
+			<label>Select Date</label>
 	</div>
+	
 	<form action="displayTimings" method="get">
 		<input id="date" name="dateSelected" type="date"
 			min="<%=getCurrentDate()%>" max="<%=getDateAfterAWeek()%>"
