@@ -30,9 +30,10 @@
 							</option>
 						<br>
 					</c:forEach>
-				</select> <br> <input type="submit" value="Submit" id="submit">
+				</select> <br> <input type="submit" value="Next" id="submit">
 			</form>
 		</div>
 	</div>
+		<footer><%@include file="footer.jsp"%></footer>
 </body>
 </html>

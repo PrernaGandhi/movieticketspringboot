@@ -25,5 +25,6 @@
 			TOTAL PRICE : ${order.totalPrice}<br>
 		</div>
 	</div>
+		<footer><%@include file="footer.jsp"%></footer>
 </body>
 </html>

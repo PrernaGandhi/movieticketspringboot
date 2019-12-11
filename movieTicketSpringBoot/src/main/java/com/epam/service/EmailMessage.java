@@ -19,7 +19,7 @@ public class EmailMessage {
 		.append("Your tickets have been confirmed!!").append(NEWLINE).append(TAB)
 		.append("The details are as follows:").append(NEWLINE).append(TAB)
 		.append("Order Id: ").append(userOrder.getOrderId()).append(NEWLINE).append(TAB)
-		.append("Email Id: ").append(userOrder.getUserName()).append(NEWLINE).append(TAB)
+		.append("Email Id: ").append(userOrder.getUser().getEmail()).append(NEWLINE).append(TAB)
 		.append("Location: ").append(userOrder.getLocationName()).append(NEWLINE).append(TAB)
 		.append("Theater Details: ").append(userOrder.getTheaterName()).append(NEWLINE).append(TAB)
 		.append("Seats Booked: ").append(userOrder.getSeatsBooked()).append(NEWLINE).append(TAB)

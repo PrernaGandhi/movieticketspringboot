@@ -8,7 +8,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Theaters</title>
+<title>Seats</title>
 <link rel="stylesheet" href="css/input.css">
 <link rel="stylesheet" href="css/body.css">
 <link rel="stylesheet" href="css/submit.css">
@@ -29,14 +29,23 @@
 				Selected :: ${order.movieName}</label> <br> <label>Theater
 				Selected :: ${order.theaterName}</label> <br> <label>Date
 				Selected :: ${order.dateOfPurchase}</label> <br> <label>Time
-				Selected :: ${time}</label>
-				<br>
-		<br>
-			<label>Select Seats</label>
+				Selected :: ${time}</label> <br> <br> <label>Select Seats</label>
 			<form action="bookSeats" method="post">
 				<c:set var="bookedSeats" value="${seatsList}" />
 				<c:forEach var="totalSeats" items="${theaterCapacity}"
 					varStatus="seat">
+					<label></label>
+					<c:if test="${totalSeats.categoryOfSeat =='N' }">
+						<label>Normal Seats :: ${totalSeats.priceOfSeat}</label>
+					</c:if>
+					<c:if test="${totalSeats.categoryOfSeat =='R' }">
+						<label>Royal Seats :: ${totalSeats.priceOfSeat}</label>
+					</c:if>
+					<c:if test="${totalSeats.categoryOfSeat =='P' }">
+						<label>Platinum Seats :: ${totalSeats.priceOfSeat}</label>
+					</c:if>
+					<br>
+					<br>
 					<c:forEach var="seatNumber" begin="1"
 						end="${totalSeats.countOfSeats}">
 						<c:set var="seatType"
@@ -54,7 +63,7 @@
 					<br>
 					<hr>
 				</c:forEach>
-				<br> <input type="submit" value="Submit" id="submit" disabled>
+				<br> <input type="submit" value="Next" id="submit" onclick="proceed()" disabled>
 			</form>
 		</div>
 	</div>
@@ -79,6 +88,10 @@
 				}
 			})
 		})
+		function proceed() {
+			  alert("Are you sure you want to proceed?");
+			}
 	</script>
+	<footer><%@include file="footer.jsp"%></footer>
 </body>
 </html>

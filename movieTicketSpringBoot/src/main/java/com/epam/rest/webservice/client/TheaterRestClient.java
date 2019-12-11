@@ -11,19 +11,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.epam.beans.Theater;
-import com.epam.utils.URLDetails;
 
 @Service
-public class TheaterRestClient {
+public class TheaterRestClient extends RestClientUtil {
 	@Autowired
 	RestTemplate restTemplate;
-	@Autowired
-	URLDetails urlDetails;
 
 	public List<Theater> getTheaterList(String movieSelected) {
 		ResponseEntity<List<Theater>> resp = restTemplate.exchange(
-				urlDetails.url.concat(urlDetails.port).concat("/restTheater/").concat(movieSelected), HttpMethod.GET,
-				null, new ParameterizedTypeReference<List<Theater>>() {
+				url.concat(port).concat("/restTheater/").concat(movieSelected), HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<Theater>>() {
 				});
 		return resp.getStatusCode() == HttpStatus.FOUND ? resp.getBody() : null;
 

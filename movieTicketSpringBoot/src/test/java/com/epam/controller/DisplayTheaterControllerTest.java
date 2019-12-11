@@ -16,6 +16,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.mock.web.MockHttpSession;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -27,6 +28,7 @@ import com.epam.rest.webservice.client.TheaterRestClient;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockUser("spring")
 class DisplayTheaterControllerTest {
 	@Autowired
 	MockMvc mockMvc;
@@ -56,8 +58,7 @@ class DisplayTheaterControllerTest {
 	void test_displayTheaters() throws Exception {
 		doReturn(theaterList).when(theaterRestClient).getTheaterList("1");
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/displayTheaters")
-				.param("movieSelected", "1").sessionAttr("movieSelected", "1").sessionAttr("order", userOrders)
-				.sessionAttr("movie", "3 Idiots");
+				.param("movieSelected", "1-War").sessionAttr("order", userOrders);
 		mockMvc.perform(builder).andExpect(status().isOk()).andReturn();
 		mockMvc.perform(builder).andExpect(view().name("displayTheaters"));
 	}

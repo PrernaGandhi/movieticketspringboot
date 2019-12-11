@@ -15,6 +15,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
@@ -27,6 +28,7 @@ import com.epam.rest.webservice.client.TimingsRestClient;
 
 @SpringBootTest
 @AutoConfigureMockMvc
+@WithMockUser("spring")
 class DisplaySeatsControllerTest {
 
 	@Autowired
@@ -58,7 +60,7 @@ class DisplaySeatsControllerTest {
 		doReturn(timings).when(timingsRestClient).getTimings(1);
 		doReturn(new Timings()).when(userOrders).getTimings();
 		MockHttpServletRequestBuilder builder = MockMvcRequestBuilders.get("/displaySeats")
-				.sessionAttr("timings", "8AM-10AM").sessionAttr("order", userOrders);
+				.sessionAttr("time", "10:00").sessionAttr("order", userOrders).param("timeSelected", "1-10:00");
 		mockMvc.perform(builder).andExpect(status().isOk()).andReturn();
 		mockMvc.perform(builder).andExpect(view().name("displaySeats"));
 	}

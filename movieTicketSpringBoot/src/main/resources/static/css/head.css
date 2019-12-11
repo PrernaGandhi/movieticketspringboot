@@ -1,14 +1,18 @@
 .loginInfo {
 	color: white !important;
-	float: right;
 }
 
 #logo {
 	max-height: 74px;
-	float: left;
 }
 
-.demo div {
-	float: left;
-	clear: none;
+.header {
+  display: inline-block; 
+  width: 100%;
+}
+.One {
+  float: right;
+}
+.Two {
+  float: left;
 }

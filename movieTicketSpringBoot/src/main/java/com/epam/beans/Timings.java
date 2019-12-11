@@ -1,5 +1,7 @@
 package com.epam.beans;
 
+import java.util.Comparator;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -16,7 +18,7 @@ import lombok.Setter;
 @Table(name = "timings")
 @Getter
 @Setter
-public class Timings {
+public class Timings implements Comparator<Timings> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "timings_id")
@@ -25,5 +27,10 @@ public class Timings {
 	@JoinColumn(name = "theater_id")
 	private Theater theater;
 	private String timing;
+
+	@Override
+	public int compare(Timings arg0, Timings arg1) {
+		return arg0.timing.compareTo(arg1.timing);
+	}
 
 }

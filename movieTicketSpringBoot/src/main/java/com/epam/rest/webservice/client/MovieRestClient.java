@@ -11,19 +11,15 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import com.epam.beans.Movie;
-import com.epam.utils.URLDetails;
 
 @Service
-public class MovieRestClient {
+public class MovieRestClient extends RestClientUtil{
 	@Autowired
 	RestTemplate restTemplate;
 
-	@Autowired
-	URLDetails urlDetails;
-
 	public List<Movie> getMovieForParticularLocation(String locationId) {
 		ResponseEntity<List<Movie>> resp = restTemplate.exchange(
-				urlDetails.url.concat(urlDetails.port).concat("/restMovie/").concat(locationId), HttpMethod.GET, null,
+				url.concat(port).concat("/restMovie/").concat(locationId), HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Movie>>() {
 				});
 		return resp.getStatusCode() == HttpStatus.FOUND ? resp.getBody() : null;

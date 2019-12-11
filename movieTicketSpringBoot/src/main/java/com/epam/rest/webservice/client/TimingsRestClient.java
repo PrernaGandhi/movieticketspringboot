@@ -12,19 +12,16 @@ import org.springframework.web.client.RestTemplate;
 
 import com.epam.beans.TheaterSeatingCapacity;
 import com.epam.beans.Timings;
-import com.epam.utils.URLDetails;
 
 @Service
-public class TimingsRestClient {
+public class TimingsRestClient extends RestClientUtil {
 	@Autowired
 	RestTemplate restTemplate;
-	@Autowired
-	URLDetails urlDetails;
 
 	public List<TheaterSeatingCapacity> getTheaterCapacity(String theater) {
 		ResponseEntity<List<TheaterSeatingCapacity>> resp = restTemplate.exchange(
-				urlDetails.url.concat(urlDetails.port).concat("/restTheaterCapacity/").concat(theater), HttpMethod.GET,
-				null, new ParameterizedTypeReference<List<TheaterSeatingCapacity>>() {
+				url.concat(port).concat("/restTheaterCapacity/").concat(theater), HttpMethod.GET, null,
+				new ParameterizedTypeReference<List<TheaterSeatingCapacity>>() {
 				});
 		return resp.getStatusCode() == HttpStatus.FOUND ? resp.getBody() : null;
 
@@ -32,7 +29,7 @@ public class TimingsRestClient {
 
 	public List<Timings> getTimingList(String theater) {
 		ResponseEntity<List<Timings>> resp = restTemplate.exchange(
-				urlDetails.url.concat(urlDetails.port).concat("/restTiming/").concat(theater), HttpMethod.GET, null,
+				url.concat(port).concat("/restTiming/").concat(theater), HttpMethod.GET, null,
 				new ParameterizedTypeReference<List<Timings>>() {
 				});
 		return resp.getStatusCode() == HttpStatus.FOUND ? resp.getBody() : null;
@@ -40,7 +37,7 @@ public class TimingsRestClient {
 	}
 
 	public Timings getTimings(int timeId) {
-		ResponseEntity<Timings> resp = restTemplate.getForEntity(urlDetails.url.concat(urlDetails.port).concat("/restGetTimings/") + timeId,
+		ResponseEntity<Timings> resp = restTemplate.getForEntity(url.concat(port).concat("/restGetTimings/") + timeId,
 				Timings.class);
 		return resp.getStatusCode() == HttpStatus.FOUND ? resp.getBody() : null;
 	}

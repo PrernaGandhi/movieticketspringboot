@@ -51,9 +51,11 @@
 							</c:forEach>
 						</c:otherwise>
 					</c:choose>
-				</select> <br> <input type="submit" value="Submit" id="submit">
+				</select> <br> <input type="submit" value="Next" id="submit">
 			</form>
 		</div>
 	</div>
+		<footer><%@include file="footer.jsp"%></footer>
+		
 </body>
 </html>

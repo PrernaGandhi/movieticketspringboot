@@ -18,20 +18,17 @@
 	<div align="right"></div>
 	<div align="justify">
 		<div align="center">
-		<form action="/login-success">
-				<button class="button">Back</button>
-			</form>
-			<br>
-			<label>Select Location</label>
+			<br> <label>Select Location</label>
 			<form action="displayMovies" method="get">
 				<select name="locationSelected">
 					<c:forEach items="${locationList}" var="location" varStatus="loop">
 						<option value="${location.locationId}-${location.locationName}">${location.locationName}</option>
 						<br>
 					</c:forEach>
-				</select> <br> <input type="submit" value="Submit" id="submit">
+				</select> <br> <input type="submit" value="Next" id="submit">
 			</form>
 		</div>
 	</div>
+	<footer><%@include file="footer.jsp"%></footer>
 </body>
 </html>

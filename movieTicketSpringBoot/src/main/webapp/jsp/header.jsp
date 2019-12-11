@@ -11,15 +11,19 @@
 <link rel="stylesheet" href="css/head.css">
 </head>
 <body>
-	<div>
-		<div align="left">
-			<img id="logo" alt="" src="img/logo.png">
+	<div class="header">
+		<div class="One">
+			<div class="loginInfo" align="right" class="headerText">Welcome
+				${userInfo.firstName}</div>
+			<a class="loginInfo" href="logout">Logout</a>
 		</div>
-		<div class="loginInfo" align="right" class="headerText">Welcome
-			${userInfo.firstName}</div>
-	</div>
-	<div align="right">
-		<a class="loginInfo" href="logout">Logout</a>
+		<div align="right" class="Two"></div>
+		<div align="left">
+			<div class="loginInfo" align="left" class="headerText">
+				<img id="logo" alt="" src="img/logo.png">
+			</div>
+			<a class="loginInfo" href="/login-success">Home</a>
+		</div>
 	</div>
 </body>
 </html>

@@ -38,7 +38,8 @@
 		<input id="date" name="dateSelected" type="date"
 			min="<%=getCurrentDate()%>" max="<%=getDateAfterAWeek()%>"
 			required="required"> <br> <br> <input type="submit"
-			value="Submit" id="submit">
+			value="Next" id="submit">
 	</form>
+		<footer><%@include file="footer.jsp"%></footer>
 </body>
 </html>

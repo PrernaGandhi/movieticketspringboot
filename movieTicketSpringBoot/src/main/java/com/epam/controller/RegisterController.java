@@ -39,8 +39,9 @@ public class RegisterController {
 		user.setEmail(userDetails.getEmail());
 		ModelAndView modelAndView = new ModelAndView();
 		Optional<Users> userFound = userRepository.findByUsername(userDetails.getUsername());
-		if (userFound.isPresent()) {
-			modelAndView.addObject("errorMsg", "Username Already Taken");
+		Optional<Users> userEmailFound = userRepository.findByEmail(userDetails.getEmail());
+		if (userFound.isPresent() || userEmailFound.isPresent()) {
+			modelAndView.addObject("errorMsg", "Username Or Email Already Taken");
 			modelAndView.setViewName("register");
 		} else {
 			Users userSaved = registerRestClient.register(user);
