@@ -6,6 +6,8 @@ import java.util.List;
 import com.epam.beans.Seats;
 
 public class HelperFunctions {
+	private HelperFunctions() {
+	}
 	public static boolean isCheckboxChecked(List<Seats> seatList, String seatId) {
 		boolean isChecked = false;
 		for (Seats seat : seatList) {

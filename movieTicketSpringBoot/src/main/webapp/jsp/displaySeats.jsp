@@ -5,7 +5,7 @@
 <%@ taglib uri="/WEB-INF/taglib.tld" prefix="k"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="eng">
 <head>
 <meta charset="ISO-8859-1">
 <title>Seats</title>
@@ -15,7 +15,7 @@
 <link rel="stylesheet" href="css/loginInfo.css">
 <link rel="stylesheet" href="css/seats.css">
 </head>
-<body onload="disableBackButton()">
+<body onload="disableBackButton()" onload="">
 	<script>
 	  function disableBackButton()
       {
@@ -36,13 +36,13 @@
 					varStatus="seat">
 					<label></label>
 					<c:if test="${totalSeats.categoryOfSeat =='N' }">
-						<label>Normal Seats :: ${totalSeats.priceOfSeat}</label>
+						<label>Normal Seats :: Rs. ${totalSeats.priceOfSeat}</label>
 					</c:if>
 					<c:if test="${totalSeats.categoryOfSeat =='R' }">
-						<label>Royal Seats :: ${totalSeats.priceOfSeat}</label>
+						<label>Royal Seats :: Rs. ${totalSeats.priceOfSeat}</label>
 					</c:if>
 					<c:if test="${totalSeats.categoryOfSeat =='P' }">
-						<label>Platinum Seats :: ${totalSeats.priceOfSeat}</label>
+						<label>Platinum Seats :: Rs. ${totalSeats.priceOfSeat}</label>
 					</c:if>
 					<br>
 					<br>
@@ -63,7 +63,10 @@
 					<br>
 					<hr>
 				</c:forEach>
-				<br> <input type="submit" value="Next" id="submit" onclick="proceed()" disabled>
+				<br>
+				*Note: Next button will be enabled once you select a seat!!
+				<br> <input type="submit" value="Next" id="submit"
+					onclick="return proceed()" disabled>
 			</form>
 		</div>
 	</div>
@@ -71,16 +74,26 @@
 	<script>
 		let selected = 0;
 		let checkboxes = document.querySelectorAll('input[type=checkbox]');
-		
+		let price = 0;
+		var seats = [];
 		checkboxes.forEach((element)=> {
 			element.addEventListener('change', () => {
 				if(element.checked){
 				selected += 1;
+				console.log(element.value);
+				var array = element.value.split("-");
+				price += parseInt(array[1], 10);
+				seats.push(array[0]);
 				}
 				else{
 					selected-=1;
+					var array = element.value.split("-");
+					price -= parseInt(array[1], 10);
+					seats.splice(array[0], 1);
 				}
 				console.log(selected);
+				console.log(price);
+				console.log(seats);
 				if (selected > 0) {
 					document.getElementById('submit').disabled = false;
 				}else{
@@ -89,7 +102,8 @@
 			})
 		})
 		function proceed() {
-			  alert("Are you sure you want to proceed?");
+			  if(!confirm("Are you sure you want to proceed to pay Rs."+price+" for seats "+seats+"?"))
+				  return false;
 			}
 	</script>
 	<footer><%@include file="footer.jsp"%></footer>

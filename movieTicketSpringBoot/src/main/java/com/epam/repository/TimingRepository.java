@@ -9,9 +9,9 @@ import com.epam.beans.Timings;
 
 @Repository
 public interface TimingRepository extends CrudRepository<Timings, Integer> {
-
-	List<Timings> findByTheater_theaterId(int parseInt);
 	
 	Timings findById(int timeId);
+
+	List<Timings> findByTheater_theaterIdOrderByTiming(int parseInt);
 
 }

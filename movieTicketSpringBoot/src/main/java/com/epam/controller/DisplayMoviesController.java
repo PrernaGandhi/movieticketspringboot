@@ -22,7 +22,7 @@ public class DisplayMoviesController {
 	MovieRestClient movieRestClient;
 
 	@GetMapping("/displayMovies")
-	protected ModelAndView displayMovie(@RequestParam String locationSelected, HttpSession httpSession) {
+	public ModelAndView displayMovie(@RequestParam String locationSelected, HttpSession httpSession) {
 		String locationId = locationSelected.split("-")[0];
 		String locationName = locationSelected.split("-")[1];
 		UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);

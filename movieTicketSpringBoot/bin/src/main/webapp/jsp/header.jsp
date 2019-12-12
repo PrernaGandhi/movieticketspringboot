@@ -4,7 +4,7 @@
 <%@ page import="java.util.*"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="">
 <head>
 <meta charset="ISO-8859-1">
 <title>header</title>

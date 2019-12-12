@@ -11,7 +11,7 @@ import com.epam.repository.LocationRepository;
 
 @Service
 public class LocationService {
-	private static List<Location> locationList = new ArrayList<>();
+	private List<Location> locationList = new ArrayList<>();
 	@Autowired
 	LocationRepository locationRepo;
 

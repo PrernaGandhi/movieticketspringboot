@@ -19,7 +19,7 @@ public class DisplayDateController {
 	TimingsRestClient timingsRestClient;
 
 	@GetMapping("/displayDate")
-	protected ModelAndView displayTimings(@RequestParam String theaterSelected, HttpSession httpSession) {
+	public ModelAndView displayTimings(@RequestParam String theaterSelected, HttpSession httpSession) {
 		String theaterId = theaterSelected.split("-")[0];
 		String theaterName = theaterSelected.split("-")[1];
 		httpSession.setAttribute(THEATER_SELECTED, theaterId);

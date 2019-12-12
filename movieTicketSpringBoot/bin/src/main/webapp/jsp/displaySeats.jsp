@@ -5,7 +5,7 @@
 <%@ taglib uri="/WEB-INF/taglib.tld" prefix="k"%>
 
 <!DOCTYPE html>
-<html>
+<html lang="eng">
 <head>
 <meta charset="ISO-8859-1">
 <title>Theaters</title>

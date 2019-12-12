@@ -36,9 +36,9 @@ class DisplayTimingsServiceTest {
 
 	@Test
 	void test_getTimingsList() {
-		doReturn(timingsList).when(timingsRepository).findByTheater_theaterId(1);
+		doReturn(timingsList).when(timingsRepository).findByTheater_theaterIdOrderByTiming(1);
 		assertEquals(timingsList, displayTimingsService.getTimingsList("1"));
-		verify(timingsRepository).findByTheater_theaterId(1);
+		verify(timingsRepository).findByTheater_theaterIdOrderByTiming(1);
 	}
 
 	@Test

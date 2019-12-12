@@ -1,0 +1,4 @@
+autoEnabled=true
+eclipse.preferences.version=1
+extraProperties=
+fileExclusions=FILE\:bin/src/main/webapp/jsp/displayMovies.jsp\r\nFILE\:src/main/webapp/jsp/displayDate.jsp\r\nFILE\:bin/src/main/webapp/jsp/displayTheaters.jsp\r\nFILE\:src/main/webapp/jsp/displayTimings.jsp\r\nFILE\:bin/src/main/webapp/jsp/header.jsp\r\nFILE\:bin/src/main/webapp/jsp/displayTimings.jsp

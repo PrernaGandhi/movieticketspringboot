@@ -2,7 +2,7 @@
 	pageEncoding="ISO-8859-1" isELIgnored="false"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="eng">
 <head>
 <meta charset="ISO-8859-1">
 <title>MovieTicket</title>
@@ -16,6 +16,19 @@
 				href="login">Login</a>
 		</div>
 	</div>
-		<footer><%@include file="footer.jsp"%></footer>
+	<div class="header">
+		<div class="One">
+			<img alt="" src="img/war.jpg">
+		</div>
+		<div class="Two">
+			<img alt="" src="img/housefull.jpg">
+		</div>
+		<div>
+			<img alt="" src="img/robot.jpg">
+
+		</div>
+	
+	</div>
+	<footer><%@include file="footer.jsp"%></footer>
 </body>
 </html>

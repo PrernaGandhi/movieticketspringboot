@@ -37,7 +37,7 @@ public class LoginController {
 		Optional<Users> user = userRepository.findByUsername(userDetails.getUsername());
 		ModelAndView modelAndView = new ModelAndView();
 		try {
-			httpSession.setAttribute(USER_INFO, user.get());
+			httpSession.setAttribute(USER_INFO, user.orElse(null));
 			UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
 			if (userOrder == null) {
 				userOrder = new UserOrders();

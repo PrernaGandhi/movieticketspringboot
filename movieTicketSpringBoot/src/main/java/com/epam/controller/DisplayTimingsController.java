@@ -21,7 +21,7 @@ public class DisplayTimingsController {
 	TimingsRestClient timingsRestClient;
 
 	@GetMapping("/displayTimings")
-	protected ModelAndView displayTimings(@RequestParam Date dateSelected, HttpSession httpSession) {
+	public ModelAndView displayTimings(@RequestParam Date dateSelected, HttpSession httpSession) {
 		UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
 		userOrder.setDateOfPurchase(dateSelected);
 		ModelAndView modelAndView = new ModelAndView();

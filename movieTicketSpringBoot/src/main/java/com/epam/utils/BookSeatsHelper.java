@@ -39,7 +39,7 @@ public class BookSeatsHelper {
 
 		if (isSeatSelected(seatsString))
 			totalPrice = Arrays.stream(seatsString.split(COMMA))
-					.mapToDouble((s) -> Double.parseDouble(s.split(HYPHEN)[1]))
+					.mapToDouble(s -> Double.parseDouble(s.split(HYPHEN)[1]))
 					.sum();
 		return totalPrice;
 	}

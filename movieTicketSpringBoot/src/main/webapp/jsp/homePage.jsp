@@ -4,7 +4,7 @@
 <%@ page import="java.util.*"%>
 <%@ page import="com.epam.beans.Users"%>
 <!DOCTYPE html>
-<html>
+<html lang="eng">
 <head>
 <meta charset="ISO-8859-1">
 <title>Locations</title>

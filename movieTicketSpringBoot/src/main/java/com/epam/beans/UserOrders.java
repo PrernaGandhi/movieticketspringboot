@@ -22,7 +22,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class UserOrders {
+public class UserOrders{
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "order_id")
