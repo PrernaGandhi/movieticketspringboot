@@ -17,14 +17,13 @@
 	<div align="right"></div>
 	<div align="justify">
 		<div align="center">
-		<label>City Selected :: ${order.locationName}</label>
-		<br>
-		<br>
-			<label>Select Movie</label>
+			<label>City Selected :: ${order.locationName}</label> <br> <br> <label>Select
+				Movie</label>
 			<form action="displayTheaters" method="get">
 				<select name="movieSelected">
 					<c:forEach items="${movieList}" var="movie" varStatus="loop">
-						<option value="${movie.movieId}-${movie.movieName}(${movie.movieLanguage})">${movie.movieName}(${movie.movieLanguage})
+						<option
+							value="${movie.movieId}-${movie.movieName}(${movie.movieLanguage})">${movie.movieName}(${movie.movieLanguage})
 						</option>
 						<br>
 					</c:forEach>
@@ -32,6 +31,6 @@
 			</form>
 		</div>
 	</div>
-		<footer><%@include file="footer.jsp"%></footer>
+	<footer><%@include file="footer.jsp"%></footer>
 </body>
 </html>

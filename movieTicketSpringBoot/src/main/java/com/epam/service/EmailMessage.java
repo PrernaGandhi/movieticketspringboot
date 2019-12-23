@@ -10,9 +10,10 @@ public class EmailMessage {
 
 	private static final String TAB = "\t";
 	private static final String NEWLINE = "\r\n";
-	StringBuilder msg = new StringBuilder();
+	StringBuilder msg;
 
 	public String formatMsg(Users user,UserOrders userOrder) {
+		msg = new StringBuilder();
 		msg.append("Hi ")
 		.append(user.getFirstName())
 		.append(",").append(NEWLINE).append(TAB)

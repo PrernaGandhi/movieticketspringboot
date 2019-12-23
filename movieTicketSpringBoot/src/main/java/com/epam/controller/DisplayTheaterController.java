@@ -27,6 +27,7 @@ public class DisplayTheaterController {
 		UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
 		userOrder.setMovieName(movieName);
 		httpSession.setAttribute(ORDER, userOrder);
+		httpSession.setAttribute(MOVIE_SELECTED, movieSelected);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.addObject(THEATER_LIST, theaterRestClient.getTheaterList(movieId));
 		modelAndView.setViewName("displayTheaters");

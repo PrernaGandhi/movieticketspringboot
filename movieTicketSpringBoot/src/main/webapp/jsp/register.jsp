@@ -11,6 +11,8 @@
 <link rel="stylesheet" href="css/submit.css">
 </head>
 <body>
+<script type="text/javascript">
+</script>
 	<div class="outer-div">
 		<div class="inner-div">
 			<%
@@ -20,13 +22,13 @@
 			%>
 			<form action="registerUser" method="post">
 				<label>Email</label> <input type="text" name="email" id="email"
-					pattern="([A-z0-9_]+@epam.com)"
-					oninvalid="setCustomValidity('Must be a valid epam email id')" required><br />
+					pattern="([A-z0-9_]+@[A-z]+\.[A-z]+\.?[A-z]*)"
+					oninvalid="setCustomValidity('Must be a valid email id')" required><br />
 				<label>Username</label> <input type="text" name="username"
 					id="username" required><br /> <label>Password</label> <input
 					type="password" name="password" id="password"
 					pattern="^((?=.*[A-Z].*[A-Z])(?=.*[!@#$&*])(?=.*[0-9].*[0-9])(?=.*[a-z].*[a-z].*[a-z]).{8,}$)"
-					oninvalid="setCustomValidity('Please include 2 uppercase, 3 lowercase, 2 digits ,1 special character and length >= 8')"
+					oninvalid="setCustomValidity('Please include 2 uppercase, 3 lowercase, 2 digits ,1 special character')"
 					 required><br /> <label>First Name</label> <input
 					type="text" name="firstName" id="fname" pattern="([A-z]+)" required><br /> <label>Last
 					Name</label> <input type="text" name="lastName" id="lname" pattern="([A-z]+)" required><br />

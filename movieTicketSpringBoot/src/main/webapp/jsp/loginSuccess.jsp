@@ -14,7 +14,7 @@
 		<div class="inner-div">
 			<label>welcome ${userInfo.firstName}</label> <br> <br> <img
 				alt="" src="img/Popcorn.jpg">
-			<form action="homePage">
+			<form action="homePage" method="get">
 				<button class="button">click to continue..</button>
 			</form>
 		</div>

@@ -17,16 +17,13 @@
 	<div class="outer-div">
 		<div class="inner-div">
 
-			BOOKING CONFIRMED!!!!!!!!<br>
-			<br>
-			USERNAME : ${order.userName}<br>
+			BOOKING CONFIRMED!!!!!!!!<br> USERNAME : ${order.userName}<br>
 			LOCATION : ${order.locationName}<br> THEATER DETAILS :
 			${order.theaterName}<br> SEATS BOOKED: ${order.seatsBooked}<br>
 			MOVIE DETAILS : ${order.movieName}<br> TIMINGS :
 			${order.timings.timing}<br> MOVIE SHOW DATE : ${order.dateOfPurchase}<br>
 			TOTAL PRICE : ${order.totalPrice}<br>
-			Booking Details will be sent to your mail id!!
-			<br>
+			Email is sent to ${order.user.email}
 		</div>
 	</div>
 		<footer><%@include file="footer.jsp"%></footer>

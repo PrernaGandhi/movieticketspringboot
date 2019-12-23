@@ -25,7 +25,6 @@
 		</div>
 		<div>
 			<img alt="" src="img/robot.jpg">
-
 		</div>
 	
 	</div>

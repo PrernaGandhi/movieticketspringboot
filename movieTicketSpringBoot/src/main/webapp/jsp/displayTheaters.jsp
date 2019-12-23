@@ -17,6 +17,7 @@
 	<div align="right"></div>
 	<div align="justify">
 		<div align="center">
+		<br>
 		<label>City Selected :: ${order.locationName}</label>	
 		<br>
 		<label>Movie Selected :: ${order.movieName}</label>
