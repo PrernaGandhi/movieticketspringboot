@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.epam.beans.UserOrders;
 import com.epam.rest.webservice.client.TimingsRestClient;
+import com.epam.validator.service.DateSelectedValidatorService;
 
 @Controller
 public class DisplayTimingsController {
@@ -20,17 +21,23 @@ public class DisplayTimingsController {
 	private static final String ORDER = "order";
 	@Autowired
 	TimingsRestClient timingsRestClient;
-	
+	@Autowired
+	DateSelectedValidatorService dateSelectedValidatorService;
+
 	@GetMapping("/displayTimings")
 	public ModelAndView displayTimings(@RequestParam Date dateSelected, HttpSession httpSession) {
-		UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
-		userOrder.setDateOfPurchase(dateSelected);
-		httpSession.setAttribute(DATE_SELECTED, dateSelected);
 		ModelAndView modelAndView = new ModelAndView();
-		String theaterSelected = (String) httpSession.getAttribute("theaterSelected");
-		modelAndView.addObject(TIMINGS_LIST, timingsRestClient.getTimingList(theaterSelected));
-		modelAndView.addObject(DATE_SELECTED, dateSelected);
-		modelAndView.setViewName("displayTimings");
+		if (dateSelectedValidatorService.validate(dateSelected)) {
+			UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
+			userOrder.setDateOfPurchase(dateSelected);
+			httpSession.setAttribute(DATE_SELECTED, dateSelected);
+			String theaterSelected = (String) httpSession.getAttribute("theaterSelected");
+			modelAndView.addObject(TIMINGS_LIST, timingsRestClient.getTimingList(theaterSelected));
+			modelAndView.addObject(DATE_SELECTED, dateSelected);
+			modelAndView.setViewName("displayTimings");
+		} else {
+			modelAndView.setViewName("incorrect-date");
+		}
 		return modelAndView;
 	}
 }

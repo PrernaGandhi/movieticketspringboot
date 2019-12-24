@@ -10,6 +10,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.epam.beans.UserOrders;
 import com.epam.rest.webservice.client.TimingsRestClient;
+import com.epam.validator.service.TheaterSelectedValidatorService;
+
 @Controller
 public class DisplayDateController {
 	private static final String THEATER_CAPACITY = "theaterCapacity";
@@ -17,18 +19,24 @@ public class DisplayDateController {
 	private static final String THEATER_SELECTED = "theaterSelected";
 	@Autowired
 	TimingsRestClient timingsRestClient;
+	@Autowired
+	TheaterSelectedValidatorService theaterSelectedValidatorService;
 
 	@GetMapping("/displayDate")
 	public ModelAndView displayTimings(@RequestParam String theaterSelected, HttpSession httpSession) {
-		String theaterId = theaterSelected.split("-")[0];
-		String theaterName = theaterSelected.split("-")[1];
-		httpSession.setAttribute(THEATER_SELECTED, theaterId);
-		UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
-		userOrder.setTheaterName(theaterName);
-		httpSession.setAttribute(ORDER, userOrder);
-		httpSession.setAttribute(THEATER_CAPACITY, timingsRestClient.getTheaterCapacity(theaterId));
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("displayDate");
+		if (theaterSelectedValidatorService.validate(theaterSelected)) {
+			String theaterId = theaterSelected.split("-")[0];
+			String theaterName = theaterSelected.split("-")[1];
+			httpSession.setAttribute(THEATER_SELECTED, theaterId);
+			UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
+			userOrder.setTheaterName(theaterName);
+			httpSession.setAttribute(ORDER, userOrder);
+			httpSession.setAttribute(THEATER_CAPACITY, timingsRestClient.getTheaterCapacity(theaterId));
+			modelAndView.setViewName("displayDate");
+		} else {
+			modelAndView.setViewName("incorrect-url");
+		}
 		return modelAndView;
 	}
 }

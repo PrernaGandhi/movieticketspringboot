@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.epam.beans.Movie;
 import com.epam.beans.UserOrders;
 import com.epam.rest.webservice.client.MovieRestClient;
+import com.epam.validator.service.LocationSelectedValidatorService;
 
 @Controller
 public class DisplayMoviesController {
@@ -19,19 +20,24 @@ public class DisplayMoviesController {
 	private static final String ORDER = "order";
 	@Autowired
 	MovieRestClient movieRestClient;
-	
+	@Autowired
+	LocationSelectedValidatorService locationSelectedValidatorService;
+
 	@GetMapping("/displayMovies")
 	public ModelAndView displayMovie(@RequestParam String locationSelected, HttpSession httpSession) {
-		String locationId = locationSelected.split("-")[0];
-		String locationName = locationSelected.split("-")[1];
-		UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
-		userOrder.setLocationName(locationName);
-		httpSession.setAttribute(ORDER, userOrder);
-		List<Movie> movieList = movieRestClient.getMovieForParticularLocation(locationId);
-		httpSession.setAttribute(MOVIE_LIST, movieList);
-		httpSession.setAttribute("locSelected", locationSelected);
 		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.setViewName("displayMovies");
+		if (locationSelectedValidatorService.validate(locationSelected)) {
+			String locationId = locationSelected.split("-")[0];
+			String locationName = locationSelected.split("-")[1];
+			UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
+			userOrder.setLocationName(locationName);
+			httpSession.setAttribute(ORDER, userOrder);
+			List<Movie> movieList = movieRestClient.getMovieForParticularLocation(locationId);
+			httpSession.setAttribute(MOVIE_LIST, movieList);
+			modelAndView.setViewName("displayMovies");
+		} else {
+			modelAndView.setViewName("incorrect-url");
+		}
 		return modelAndView;
 	}
 }
