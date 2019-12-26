@@ -23,7 +23,7 @@ public class DateSelectedValidatorService implements ValidatorService {
 		calender.add(Calendar.DATE, 7);
 		Calendar today = Calendar.getInstance();
 		today.add(Calendar.DATE, -1);
-		if (dateSelected.after(Calendar.getInstance().getTime()) && dateSelected.before(calender.getTime())) {
+		if (dateSelected.after(today.getTime()) && dateSelected.before(calender.getTime())) {
 			isValid = true;
 		}
 		return isValid;

@@ -14,6 +14,7 @@ import com.epam.beans.Timings;
 import com.epam.beans.UserOrders;
 import com.epam.rest.webservice.client.SeatsRestClient;
 import com.epam.rest.webservice.client.TimingsRestClient;
+import com.epam.validator.service.TimeSelectedValidatorService;
 
 @Controller
 public class DisplaySeatsController {
@@ -22,27 +23,33 @@ public class DisplaySeatsController {
 	protected static final Logger LOGGER = LoggerFactory.getLogger(DisplaySeatsController.class);
 
 	@Autowired
+	TimeSelectedValidatorService timeSelectedValidatorService;
+	@Autowired
 	SeatsRestClient restClient;
 	@Autowired
 	TimingsRestClient timingsRestClient;
 
 	@GetMapping("/displaySeats")
 	public ModelAndView displaySeats(@RequestParam String timeSelected, HttpSession httpSession) {
-		String timeId = timeSelected.split("-")[0];
-		String timing = timeSelected.split("-")[1];
 		ModelAndView modelAndView = new ModelAndView();
-		try {
-			UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
-			Timings timings = timingsRestClient.getTimings(Integer.parseInt(timeId));
-			httpSession.setAttribute("time", timing);
-			userOrder.setTimings(timings);
-			userOrder.setTimingsId(userOrder.getTimings().getTimingsId());
-			httpSession.setAttribute(ORDER, userOrder);
-			modelAndView.addObject(SEATS_LIST, restClient.getSeatsList(String.valueOf(userOrder.getTimingsId()),
-					String.valueOf(userOrder.getDateOfPurchase())));
-			modelAndView.setViewName("displaySeats");
-		} catch (NumberFormatException e) {
-			LOGGER.error("Exception occurred while booking seat {}", e.getMessage());
+		if (timeSelectedValidatorService.validate(timeSelected)) {
+			String timeId = timeSelected.split("-")[0];
+			String timing = timeSelected.split("-")[1];
+			try {
+				UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
+				Timings timings = timingsRestClient.getTimings(Integer.parseInt(timeId));
+				httpSession.setAttribute("time", timing);
+				userOrder.setTimings(timings);
+				userOrder.setTimingsId(userOrder.getTimings().getTimingsId());
+				httpSession.setAttribute(ORDER, userOrder);
+				modelAndView.addObject(SEATS_LIST, restClient.getSeatsList(String.valueOf(userOrder.getTimingsId()),
+						String.valueOf(userOrder.getDateOfPurchase())));
+				modelAndView.setViewName("displaySeats");
+			} catch (NumberFormatException e) {
+				LOGGER.error("Exception occurred while booking seat {}", e.getMessage());
+			}
+		} else {
+			modelAndView.setViewName("incorrect-url");
 		}
 		return modelAndView;
 	}

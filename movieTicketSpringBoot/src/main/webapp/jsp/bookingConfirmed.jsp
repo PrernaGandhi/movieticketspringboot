@@ -13,6 +13,11 @@
 <link rel="stylesheet" href="css/loginInfo.css">
 </head>
 <body>
+<script type="text/javascript">
+    window.onbeforeunload = function() {
+        return "Dude, are you sure you want to leave? Think of the kittens!";
+    }
+</script>
 	<%@include file="header.jsp"%>
 	<div class="outer-div">
 		<div class="inner-div">
