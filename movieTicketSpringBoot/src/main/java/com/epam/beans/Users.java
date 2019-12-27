@@ -14,7 +14,7 @@ import lombok.Setter;
 
 @Component
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 @Getter
 @Setter
 public class Users{
@@ -30,4 +30,6 @@ public class Users{
 	private String lastName;
 	private int age;
 	private String gender;
+    private boolean isEnabled;
+    private String role = "USER";
 }

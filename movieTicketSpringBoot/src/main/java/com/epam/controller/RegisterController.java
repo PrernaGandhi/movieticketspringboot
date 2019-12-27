@@ -10,14 +10,21 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.epam.beans.ConfirmationToken;
 import com.epam.beans.Users;
+import com.epam.repository.ConfirmationTokenRepository;
 import com.epam.repository.UserRepository;
 import com.epam.rest.webservice.client.RegisterRestClient;
+import com.epam.rest.webservice.client.RestClientUtil;
+import com.epam.service.EmailService;
 
 @Controller
-public class RegisterController {
+public class RegisterController extends RestClientUtil {
 	protected static final Logger LOGGER = LoggerFactory.getLogger(RegisterController.class);
 	@Autowired
 	Users user;
@@ -25,6 +32,10 @@ public class RegisterController {
 	RegisterRestClient registerRestClient;
 	@Autowired
 	UserRepository userRepository;
+	@Autowired
+	private ConfirmationTokenRepository confirmationTokenRepository;
+	@Autowired
+	EmailService emailService;
 
 	@PostMapping("/registerUser")
 	public ModelAndView submitRegistrationForm(@Validated Users userDetails) {
@@ -45,9 +56,17 @@ public class RegisterController {
 			modelAndView.setViewName("register");
 		} else {
 			Users userSaved = registerRestClient.register(user);
+
 			if (userSaved != null) {
+				ConfirmationToken confirmationToken = new ConfirmationToken(userSaved);
+
+				confirmationTokenRepository.save(confirmationToken);
+				emailService.sendMail(userSaved.getEmail(), "Complete Registration!",
+						"To confirm your account, please click here : ".concat(url).concat(port)
+								.concat("/confirm-account?token=").concat(confirmationToken.getConfirmationToken()));
 				LOGGER.info("User Registered!!!!");
-				modelAndView.setViewName("redirect:/login");
+				modelAndView.addObject("emailId", user.getEmail());
+				modelAndView.setViewName("successfulRegisteration");
 			}
 		}
 		return modelAndView;
@@ -57,6 +76,26 @@ public class RegisterController {
 	public ModelAndView displayUserRegistrationForm() {
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName("register");
+		return modelAndView;
+	}
+
+	@RequestMapping(value = "/confirm-account", method = { RequestMethod.GET })
+	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token") String confirmationToken) {
+		ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+
+		if (token != null) {
+			Optional<Users> userFound = userRepository.findByUsername(token.getUser().getUsername());
+			if (userFound.isPresent()) {
+				System.out.println("got it ");
+				userFound.get().setEnabled(true);
+				userRepository.save(userFound.get());
+			}
+			modelAndView.setViewName("accountVerified");
+		} else {
+			modelAndView.addObject("message", "The link is invalid or broken!");
+			modelAndView.setViewName("error");
+		}
+
 		return modelAndView;
 	}
 }

@@ -30,6 +30,12 @@
 				Selected :: ${order.theaterName}</label> <br> <label>Date
 				Selected :: ${order.dateOfPurchase}</label> <br> <label>Time
 				Selected :: ${time}</label> <br> <br> <label>Select Seats</label>
+				<br>
+				<br>
+				<hr>
+				<br>
+				<label>-------------------Screen This Way---------------------</label>
+				<br>
 			<form action="bookSeats" method="post">
 				<c:set var="bookedSeats" value="${seatsList}" />
 				<c:forEach var="totalSeats" items="${theaterCapacity}"

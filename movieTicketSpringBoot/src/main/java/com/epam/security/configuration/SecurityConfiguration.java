@@ -9,12 +9,21 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.authentication.AuthenticationFailureHandler;
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	@Autowired
+	private AuthenticationSuccessHandler authenticationSuccessHandler;
+	@Autowired
+	private AuthenticationFailureHandler authenticationFailureHandler;
 
 	@Autowired
 	UserDetailsService userDetailsService;
+	@Autowired
+	private AccessDeniedHandler accessDeniedHandler;
 
 	@Bean
 	public PasswordEncoder getPasswordEncoder() {
@@ -26,14 +35,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeRequests().antMatchers("/", "/login", "/registerUser", "/css/**").permitAll()
 				.antMatchers("/homePage", "/displayTimings", "/displayTheaters", "/bookSeats", "/displayDate",
 						"/displayMovies", "/displaySeats")
-				.authenticated().and().formLogin().successForwardUrl("/login-success")
-				.permitAll().and().logout().invalidateHttpSession(true)
+				.hasAuthority("USER").antMatchers("/admin", "/addLocation", "/displayLocation", "/adminPage")
+				.hasAuthority("ADMIN").and().formLogin().successHandler(authenticationSuccessHandler)
+				.failureHandler(authenticationFailureHandler).permitAll().and().exceptionHandling()
+				.accessDeniedHandler(accessDeniedHandler).and().logout().invalidateHttpSession(true)
 				.clearAuthentication(true).permitAll();
 	}
 
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(userDetailsService).passwordEncoder(getPasswordEncoder());
+	}
+
+	@Autowired
+	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
+		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN").authorities("ADMIN");
 	}
 
 }

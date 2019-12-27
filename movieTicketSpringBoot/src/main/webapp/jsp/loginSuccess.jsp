@@ -12,7 +12,7 @@
 	<%@include file="header.jsp"%>
 	<div class="outer-div">
 		<div class="inner-div">
-			<label>welcome ${userInfo.firstName}</label> <br> <br> <img
+			<label>Welcome ${userInfo.firstName}</label> <br> <br> <img
 				alt="" src="img/Popcorn.jpg">
 			<form action="homePage" method="get">
 				<button class="button">click to continue..</button>

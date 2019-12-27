@@ -21,7 +21,7 @@ public class DisplayTimingsService {
 	}
 
 	public List<TheaterSeatingCapacity> getTheaterSeatingCapacityList(String theaterName) {
-		return theaterCapacityRepository.findByTheater_theaterId(Integer.parseInt(theaterName));
+		return theaterCapacityRepository.findByTheater_theaterIdOrderByPriceOfSeatAsc(Integer.parseInt(theaterName));
 	}
 
 	public Timings getTimings(int timeSelected) {

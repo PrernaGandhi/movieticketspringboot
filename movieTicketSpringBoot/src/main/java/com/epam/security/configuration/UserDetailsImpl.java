@@ -1,7 +1,8 @@
 package com.epam.security.configuration;
 
-import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -23,7 +24,13 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-		return new ArrayList<>();
+		return Collections.singleton(new GrantedAuthority() {
+			private static final long serialVersionUID = 1L;
+			@Override
+			public String getAuthority() {
+				return user.getRole();
+			}
+		});
 	}
 
 	@Override
@@ -53,7 +60,7 @@ public class UserDetailsImpl implements UserDetails {
 
 	@Override
 	public boolean isEnabled() {
-		return true;
+		return user.isEnabled();
 	}
 
 }

@@ -10,6 +10,6 @@ import com.epam.beans.TheaterSeatingCapacity;
 @Repository
 public interface TheaterCapacityRepository extends CrudRepository<TheaterSeatingCapacity, Integer>{
 
-	List<TheaterSeatingCapacity> findByTheater_theaterId(int parseInt);
+	List<TheaterSeatingCapacity> findByTheater_theaterIdOrderByPriceOfSeatAsc(int parseInt);
 
 }

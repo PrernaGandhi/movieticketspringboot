@@ -24,7 +24,7 @@ public class LoginController {
 	protected static final Logger LOGGER = LoggerFactory.getLogger(LoginController.class);
 	@Autowired
 	UserRepository userRepository;
-	
+
 	@GetMapping("/login-success")
 	public ModelAndView goBack() {
 		ModelAndView modelAndView = new ModelAndView();
@@ -37,15 +37,22 @@ public class LoginController {
 		Optional<Users> user = userRepository.findByUsername(userDetails.getUsername());
 		ModelAndView modelAndView = new ModelAndView();
 		try {
-			httpSession.setAttribute(USER_INFO, user.get());
-			UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
-			if (userOrder == null) {
-				userOrder = new UserOrders();
+			if (user.isPresent()) {
+				if (user.get().isEnabled()) {
+					httpSession.setAttribute(USER_INFO, user.get());
+					UserOrders userOrder = (UserOrders) httpSession.getAttribute(ORDER);
+					if (userOrder == null) {
+						userOrder = new UserOrders();
+					}
+					userOrder.setUser(user.get());
+					userOrder.setUserName(user.get().getUsername());
+					httpSession.setAttribute(ORDER, userOrder);
+					modelAndView.setViewName("loginSuccess");
+				} else {
+					modelAndView.addObject("emailId", user.get().getEmail());
+					modelAndView.setViewName("inactiveAccount");
+				}
 			}
-			userOrder.setUser(user.get());
-			userOrder.setUserName(user.get().getUsername());
-			httpSession.setAttribute(ORDER, userOrder);
-			modelAndView.setViewName("loginSuccess");
 		} catch (Exception e) {
 			LOGGER.error("Exception occurred while logging in {} ", e.getMessage());
 		}

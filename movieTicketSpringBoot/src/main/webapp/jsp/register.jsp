@@ -22,7 +22,7 @@
 			%>
 			<form action="registerUser" method="post">
 				<label>Email</label> <input type="text" name="email" id="email"
-					pattern="([A-z0-9_]+@[A-z]+\.[A-z]+\.?[A-z]*)"
+					pattern="([A-z0-9_.]+@[A-z]+\.[A-z]+\.?[A-z]*)"
 					oninvalid="setCustomValidity('Must be a valid email id')" required><br />
 				<label>Username</label> <input type="text" name="username"
 					id="username" required><br /> <label>Password</label> <input

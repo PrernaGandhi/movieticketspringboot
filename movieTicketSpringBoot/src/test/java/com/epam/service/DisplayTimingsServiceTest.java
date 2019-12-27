@@ -43,9 +43,9 @@ class DisplayTimingsServiceTest {
 
 	@Test
 	void test_getTheaterSeatingCapacityList() {
-		doReturn(theaterList).when(theaterCapacityRepository).findByTheater_theaterId(1);
+		doReturn(theaterList).when(theaterCapacityRepository).findByTheater_theaterIdOrderByPriceOfSeatAsc(1);
 		assertEquals(theaterList, displayTimingsService.getTheaterSeatingCapacityList("1"));
-		verify(theaterCapacityRepository).findByTheater_theaterId(1);
+		verify(theaterCapacityRepository).findByTheater_theaterIdOrderByPriceOfSeatAsc(1);
 	}
 
 }
