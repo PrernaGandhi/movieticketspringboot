@@ -33,8 +33,13 @@ public class DisplayMoviesController {
 			userOrder.setLocationName(locationName);
 			httpSession.setAttribute(ORDER, userOrder);
 			List<Movie> movieList = movieRestClient.getMovieForParticularLocation(locationId);
-			httpSession.setAttribute(MOVIE_LIST, movieList);
-			modelAndView.setViewName("displayMovies");
+			if (movieList != null && !movieList.isEmpty()) {
+				httpSession.setAttribute(MOVIE_LIST, movieList);
+				modelAndView.setViewName("displayMovies");
+			} else {
+				modelAndView.addObject("msg", "No movies found!!");
+				modelAndView.setViewName("no-data");
+			}
 		} else {
 			modelAndView.setViewName("incorrect-url");
 		}

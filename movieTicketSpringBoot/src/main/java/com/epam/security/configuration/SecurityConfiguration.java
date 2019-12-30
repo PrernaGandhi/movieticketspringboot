@@ -15,6 +15,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 
 @EnableWebSecurity
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
+	private static final String ADMIN = "ADMIN";
 	@Autowired
 	private AuthenticationSuccessHandler authenticationSuccessHandler;
 	@Autowired
@@ -35,8 +36,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeRequests().antMatchers("/", "/login", "/registerUser", "/css/**").permitAll()
 				.antMatchers("/homePage", "/displayTimings", "/displayTheaters", "/bookSeats", "/displayDate",
 						"/displayMovies", "/displaySeats")
-				.hasAuthority("USER").antMatchers("/admin", "/addLocation", "/displayLocation", "/adminPage")
-				.hasAuthority("ADMIN").and().formLogin().successHandler(authenticationSuccessHandler)
+				.hasAuthority("USER").antMatchers("/admin", "/addLocation", "/displayLocation", "/adminPage","/displayMovie","/addMovie")
+				.hasAuthority(ADMIN).and().formLogin().successHandler(authenticationSuccessHandler)
 				.failureHandler(authenticationFailureHandler).permitAll().and().exceptionHandling()
 				.accessDeniedHandler(accessDeniedHandler).and().logout().invalidateHttpSession(true)
 				.clearAuthentication(true).permitAll();
@@ -49,7 +50,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
-		auth.inMemoryAuthentication().withUser("admin").password("admin").roles("ADMIN").authorities("ADMIN");
+		auth.inMemoryAuthentication().withUser("admin").password("admin").roles(ADMIN).authorities(ADMIN);
 	}
 
 }

@@ -12,11 +12,15 @@
 </head>
 <body>
 	<%@include file="adminheader.jsp"%>
-	<div align="right"></div>
-	<div align="justify">
-		<div align="center">
-			<a href="displayLocation"> <img alt=""
-				src="/img/add-location.png" onclick="displayLocation"></a>
+	<div class="outer-div">
+		<div class="inner-div">
+			<div title="ADD LOCATION">
+				<a href="displayLocation"> <img alt=""
+					src="/img/add-location.png"></a>
+			</div>
+			<div title="ADD MOVIE">
+				<a href="displayMovie"> <img alt="" src="/img/addmovie.jpg"></a>
+			</div>
 		</div>
 	</div>
 </body>

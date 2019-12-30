@@ -20,8 +20,13 @@ public class HomePageController {
 	public ModelAndView getAllLocations() {
 		ModelAndView modelAndView = new ModelAndView();
 		List<Location> locationList = homePageRestClient.getAllLocations();
-		modelAndView.addObject(LOCATION_LIST, locationList);
-		modelAndView.setViewName("homePage");
+		if (locationList != null && !locationList.isEmpty()) {
+			modelAndView.addObject(LOCATION_LIST, locationList);
+			modelAndView.setViewName("homePage");
+		} else {
+			modelAndView.addObject("msg", "No locations found!!");
+			modelAndView.setViewName("no-data");
+		}
 		return modelAndView;
 	}
 }

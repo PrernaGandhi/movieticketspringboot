@@ -1,5 +1,7 @@
 package com.epam.controller;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.epam.beans.Theater;
 import com.epam.beans.UserOrders;
 import com.epam.rest.webservice.client.TheaterRestClient;
 import com.epam.validator.service.MovieSelectedValidatorService;
@@ -33,8 +36,14 @@ public class DisplayTheaterController {
 			userOrder.setMovieName(movieName);
 			httpSession.setAttribute(ORDER, userOrder);
 			httpSession.setAttribute(MOVIE_SELECTED, movieSelected);
-			modelAndView.addObject(THEATER_LIST, theaterRestClient.getTheaterList(movieId));
+			List<Theater> theaterList = theaterRestClient.getTheaterList(movieId);
+			if(theaterList != null && !theaterList.isEmpty() ) {
+			modelAndView.addObject(THEATER_LIST, theaterList);
 			modelAndView.setViewName("displayTheaters");
+			}else {
+				modelAndView.addObject("msg", "No theaters found!!");
+				modelAndView.setViewName("no-data");
+			}
 		} else {
 			modelAndView.setViewName("incorrect-url");
 		}

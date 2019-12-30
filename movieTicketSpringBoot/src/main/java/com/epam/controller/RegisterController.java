@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -63,7 +61,7 @@ public class RegisterController extends RestClientUtil {
 				confirmationTokenRepository.save(confirmationToken);
 				emailService.sendMail(userSaved.getEmail(), "Complete Registration!",
 						"To confirm your account, please click here : ".concat(url).concat(port)
-								.concat("/confirm-account?token=").concat(confirmationToken.getConfirmationToken()));
+								.concat("/confirm-account?token=").concat(confirmationToken.getConfirmationTokenValue()));
 				LOGGER.info("User Registered!!!!");
 				modelAndView.addObject("emailId", user.getEmail());
 				modelAndView.setViewName("successfulRegisteration");
@@ -79,14 +77,13 @@ public class RegisterController extends RestClientUtil {
 		return modelAndView;
 	}
 
-	@RequestMapping(value = "/confirm-account", method = { RequestMethod.GET })
+	@GetMapping(value = "/confirm-account")
 	public ModelAndView confirmUserAccount(ModelAndView modelAndView, @RequestParam("token") String confirmationToken) {
-		ConfirmationToken token = confirmationTokenRepository.findByConfirmationToken(confirmationToken);
+		ConfirmationToken token = confirmationTokenRepository.findByConfirmationTokenValue(confirmationToken);
 
 		if (token != null) {
 			Optional<Users> userFound = userRepository.findByUsername(token.getUser().getUsername());
 			if (userFound.isPresent()) {
-				System.out.println("got it ");
 				userFound.get().setEnabled(true);
 				userRepository.save(userFound.get());
 			}

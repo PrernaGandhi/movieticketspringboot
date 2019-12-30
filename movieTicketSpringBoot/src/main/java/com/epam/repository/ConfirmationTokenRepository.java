@@ -7,5 +7,5 @@ import com.epam.beans.ConfirmationToken;
 
 @Repository
 public interface ConfirmationTokenRepository extends CrudRepository<ConfirmationToken, String> {
-    ConfirmationToken findByConfirmationToken(String confirmationToken);
+    ConfirmationToken findByConfirmationTokenValue(String confirmationToken);
 }

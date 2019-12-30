@@ -21,7 +21,7 @@ import lombok.Setter;
 @Setter
 public class Movie {
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.AUTO)
 	@Column(name = "movie_id")
 	private int movieId;
 

@@ -22,7 +22,6 @@ public class CustomAuthenticationFailureHandler implements AuthenticationFailure
 	@Override
 	public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response,
 			AuthenticationException exception) throws IOException, ServletException {
-		System.out.println(exception);
 		response.setStatus(HttpStatus.UNAUTHORIZED.value());
 		Map<String, Object> data = new HashMap<>();
 		data.put("timestamp", Calendar.getInstance().getTime());
