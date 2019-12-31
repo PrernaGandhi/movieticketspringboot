@@ -36,7 +36,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http.csrf().disable().authorizeRequests().antMatchers("/", "/login", "/registerUser", "/css/**").permitAll()
 				.antMatchers("/homePage", "/displayTimings", "/displayTheaters", "/bookSeats", "/displayDate",
 						"/displayMovies", "/displaySeats")
-				.hasAuthority("USER").antMatchers("/admin", "/addLocation", "/displayLocation", "/adminPage","/displayMovie","/addMovie")
+				.hasAuthority("USER")
+				.antMatchers("/admin", "/addLocation", "/displayLocation", "/adminPage", "/displayMovie", "/addMovie",
+						"/displayTheater", "/addTheater")
 				.hasAuthority(ADMIN).and().formLogin().successHandler(authenticationSuccessHandler)
 				.failureHandler(authenticationFailureHandler).permitAll().and().exceptionHandling()
 				.accessDeniedHandler(accessDeniedHandler).and().logout().invalidateHttpSession(true)

@@ -21,6 +21,9 @@
 			<div title="ADD MOVIE">
 				<a href="displayMovie"> <img alt="" src="/img/addmovie.jpg"></a>
 			</div>
+			<div title="ADD THEATER">
+				<a href="displayTheater"> <img alt="" src="/img/addtheater.png"></a>
+			</div>
 		</div>
 	</div>
 </body>

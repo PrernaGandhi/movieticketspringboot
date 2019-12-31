@@ -59,12 +59,12 @@ public class AddMovieController {
 		return modelAndView;
 	}
 
-	@ExceptionHandler(EntryAlreadyExistsInDatabase.class)
-	public ModelAndView EntryAlreadyExistsInDatabase(HttpServletRequest request, Exception ex) {
-		ModelAndView modelAndView = new ModelAndView();
-		modelAndView.addObject("exception", ex);
-		modelAndView.addObject("url", request.getRequestURL());
-		modelAndView.setViewName("dup-data");
-		return modelAndView;
-	}
+	
+	  @ExceptionHandler(EntryAlreadyExistsInDatabase.class) public ModelAndView
+	  EntryAlreadyExistsInDatabase(HttpServletRequest request, Exception ex) {
+	  ModelAndView modelAndView = new ModelAndView();
+	  modelAndView.addObject("exception", ex); modelAndView.addObject("url",
+	  request.getRequestURL()); modelAndView.setViewName("dup-data"); return
+	  modelAndView; }
+	 
 }
